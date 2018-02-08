@@ -17,7 +17,9 @@
 
 local date_to_jdn = require "dromozoa.calendar.date_to_jdn"
 
--- https://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%AA%E3%82%A6%E3%82%B9%E9%80%9A%E6%97%A5
+assert(tostring(date_to_jdn(2000, 1, 1)) == "2451545")
+
+-- Wikipedia
 assert(date_to_jdn(-1975, 11,  7) == 1000000)
 assert(date_to_jdn(-1332,  1, 23) == 1234567)
 assert(date_to_jdn(  763,  9, 14) == 2000000)
@@ -31,4 +33,20 @@ assert(date_to_jdn( 3501,  8, 15) == 3000000)
 assert(date_to_jdn( 4752,  4,  7) == 3456789)
 assert(date_to_jdn( 6239,  7, 12) == 4000000)
 
-assert(tostring(date_to_jdn(2000, 1, 1)) == "2451545")
+-- Astronomical Algorithms
+assert(date_to_jdn( 2000,  1,  1) == 2451545)
+assert(date_to_jdn( 1999,  1,  1) == 2451180)
+assert(date_to_jdn( 1987,  1, 27) == 2446823)
+assert(date_to_jdn( 1987,  6, 19) == 2446966)
+assert(date_to_jdn( 1988,  1, 27) == 2447188)
+assert(date_to_jdn( 1988,  6, 19) == 2447332)
+assert(date_to_jdn( 1900,  1,  1) == 2415021)
+assert(date_to_jdn( 1600,  1,  1) == 2305448)
+assert(date_to_jdn( 1600, 12, 31) == 2305813)
+assert(date_to_jdn(  837,  4, 10) == 2026872)
+assert(date_to_jdn( -123, 12, 31) == 1676497)
+assert(date_to_jdn( -122,  1,  1) == 1676498)
+assert(date_to_jdn(-1000,  7, 12) == 1356001)
+assert(date_to_jdn(-1000,  2, 29) == 1355867)
+assert(date_to_jdn(-1001,  8, 17) == 1355671)
+assert(date_to_jdn(-4712,  1,  1) ==       0)
