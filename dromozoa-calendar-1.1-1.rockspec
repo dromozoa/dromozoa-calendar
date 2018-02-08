@@ -1,8 +1,8 @@
 package = "dromozoa-calendar"
-version = "1.0-1"
+version = "1.1-1"
 source = {
-  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.0.tar.gz";
-  file = "dromozoa-calendar-1.0.tar.gz";
+  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.1.tar.gz";
+  file = "dromozoa-calendar-1.1.tar.gz";
 }
 description = {
   summary = "Date functions and Japanese calendar";
@@ -13,6 +13,7 @@ description = {
 build = {
   type = "builtin";
   modules = {
+    ["dromozoa.calendar"] = "dromozoa/calendar.lua";
     ["dromozoa.calendar.dataset.holidays"] = "dromozoa/calendar/dataset/holidays.lua";
     ["dromozoa.calendar.dataset.holidays2006"] = "dromozoa/calendar/dataset/holidays2006.lua";
     ["dromozoa.calendar.dataset.holidays2007"] = "dromozoa/calendar/dataset/holidays2007.lua";
@@ -29,7 +30,7 @@ build = {
     ["dromozoa.calendar.dataset.holidays2018"] = "dromozoa/calendar/dataset/holidays2018.lua";
     ["dromozoa.calendar.dataset.holidays2019"] = "dromozoa/calendar/dataset/holidays2019.lua";
     ["dromozoa.calendar.date_to_jdn"] = "dromozoa/calendar/date_to_jdn.lua";
-    ["dromozoa.calendar.holiday"] = "dromozoa/calendar/holiday.lua";
+    ["dromozoa.calendar.is_holiday"] = "dromozoa/calendar/is_holiday.lua";
     ["dromozoa.calendar.jdn_to_date"] = "dromozoa/calendar/jdn_to_date.lua";
   };
 }

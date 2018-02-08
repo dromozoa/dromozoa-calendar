@@ -15,16 +15,26 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local is_holiday = require "dromozoa.calendar.is_holiday"
+local holidays = require "dromozoa.calendar.dataset.holidays"
 
-assert(is_holiday(2005, 1, 1) == nil)
-local item = is_holiday(2006, 1, 1)
-assert(item.kind == "祝日")
-assert(item.name == "元日")
-local item = is_holiday(2006, 1, 2)
-assert(item.kind == "休日")
-assert(item.name == "振替休日")
-assert(is_holiday(2006, 1, 3) == false)
-local item = is_holiday(2006, 5, 4)
-assert(item.kind == "休日")
-assert(item.name == "国民の休日")
+local min_year = holidays.min_year
+local max_year = holidays.max_year
+local dataset = {}
+
+return function (year, month, day)
+  if min_year <= year and year <= max_year then
+    local data = dataset[year]
+    if not data then
+      data = require(("dromozoa.calendar.dataset.holidays%d"):format(year))
+      dataset[year] = data
+    end
+    local item = data[month][day]
+    if item then
+      return item
+    else
+      return false
+    end
+  else
+    return nil
+  end
+end
