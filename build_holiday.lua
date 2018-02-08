@@ -162,14 +162,29 @@ end
 
 local function write_lua(filename, data)
   local out = assert(io.open(filename, "w"))
-  out:write "return {\n"
+  out:write [[
+local items = {
+]]
   for i = 1, #data do
     local item = data[i]
     out:write(([[
   { year = %d, month = %2d, day = %2d, kind = "%s", name = "%s" };
 ]]):format(item.year, item.month, item.day, item.kind, item.name))
   end
-  out:write "}\n"
+out:write [[
+}
+
+return {
+  items = items;
+]]
+  for i = 1, #data do
+    out:write(([[
+  items[%s];
+]]):format(i))
+  end
+  out:write [[
+}
+]]
   out:close()
 end
 
