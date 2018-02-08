@@ -197,7 +197,7 @@ end
 
 os.execute("mkdir -p dromozoa/calendar/dataset")
 for year = min_year, max_year do
-  local filename = ("dromozoa/calendar/dataset/holidays%04d.lua"):format(year)
+  local filename = ("dromozoa/calendar/dataset/holidays%d.lua"):format(year)
   write_lua(filename, dataset[year])
 end
 
@@ -210,7 +210,7 @@ out:close()
 
 os.execute("mkdir -p docs/dataset")
 for year = min_year, max_year do
-  local filename = ("docs/dataset/holidays%04d.json"):format(year)
+  local filename = ("docs/dataset/holidays%d.json"):format(year)
   write_json(filename, dataset[year])
 end
 
