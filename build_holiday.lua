@@ -162,56 +162,22 @@ end
 
 local function write_lua(filename, data)
   local out = assert(io.open(filename, "w"))
-  out:write [[
-local items = {
+
+out:write [[
+local _ = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
 ]]
+
   for i = 1, #data do
     local item = data[i]
     out:write(([[
-  { year = %d, month = %2d, day = %2d, kind = "%s", name = "%s" };
-]]):format(item.year, item.month, item.day, item.kind, item.name))
-  end
-out:write [[
-}
-
-]]
-
-  local months = {}
-  for month = 1, 12 do
-    months[month] = {}
-  end
-  for i = 1, #data do
-    local item = data[i]
-    local days = months[item.month]
-    days[#days + 1] = i
+_[%2d][%2d] = { kind = "%s", name = "%s" };
+]]):format(item.month, item.day, item.kind, item.name))
   end
 
 out:write [[
-return {
+return _
 ]]
 
-  for i = 1, #months do
-    local days = months[i]
-    local n = #days
-    if n == 0 then
-      out:write "  {};\n"
-    elseif n == 1 then
-      local j = days[1]
-      local item = data[j]
-      out:write(("  { [%d] = items[%d] };\n"):format(item.day, j))
-    else
-      out:write "  {\n"
-      for j = 1, #days do
-        local k = days[j]
-        local item = data[k]
-      out:write(("    [%d] = items[%d];\n"):format(item.day, k))
-      end
-      out:write "  };\n"
-    end
-  end
-  out:write [[
-}
-]]
   out:close()
 end
 
