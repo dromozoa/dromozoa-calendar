@@ -15,9 +15,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local dumper = require "dromozoa.commons.dumper"
-local date_to_jdn = require "dromozoa.calendar.date_to_jdn"
-local jdn_to_date = require "dromozoa.calendar.jdn_to_date"
+local calendar = require "dromozoa.calendar"
 
 local name_map = {
   ["元日"] = true;
@@ -48,7 +46,7 @@ for line in handle:lines() do
     year = assert(tonumber(year, 10))
     month = assert(tonumber(month, 10))
     day = assert(tonumber(day, 10))
-    local jdn = date_to_jdn(year, month, day)
+    local jdn = calendar.date_to_jdn(year, month, day)
     local item = jdn_map[jdn]
     if item then
       assert(item == name)
@@ -67,7 +65,7 @@ for line in handle:lines() do
   year = assert(tonumber(year, 10))
   month = assert(tonumber(month, 10))
   day = assert(tonumber(day, 10))
-  local jdn = date_to_jdn(year, month, day)
+  local jdn = calendar.date_to_jdn(year, month, day)
   local item = jdn_map[jdn]
   if item then
     assert(item == name)
@@ -83,7 +81,7 @@ local min_year
 local max_year
 
 for jdn, name in pairs(jdn_map) do
-  local year = jdn_to_date(jdn)
+  local year = calendar.jdn_to_date(jdn)
   if not min_year or min_year > year then
     min_year = year
   end
@@ -97,10 +95,10 @@ local function is_holiday(jdn)
   return name and not name:find "休日$"
 end
 
-local min_jdn = date_to_jdn(min_year,  1,  1)
-local max_jdn = date_to_jdn(max_year, 12, 31)
+local min_jdn = calendar.date_to_jdn(min_year,  1,  1)
+local max_jdn = calendar.date_to_jdn(max_year, 12, 31)
 for jdn = min_jdn, max_jdn do
-  local year, month, day, wday = jdn_to_date(jdn)
+  local year, month, day, wday = calendar.jdn_to_date(jdn)
   if is_holiday(jdn) and wday == 0 then
     local next_jdn = jdn + 1
     while true do
@@ -123,7 +121,6 @@ for jdn = min_jdn, max_jdn do
   if is_holiday(prev_jdn) and is_holiday(next_jdn) and not is_holiday(jdn) then
     local name = jdn_map[jdn]
     if name then
-      -- print(item, jdn_to_date(jdn))
       assert(name == "国民の休日")
     else
       jdn_map[jdn] = "国民の休日"
@@ -141,7 +138,7 @@ local dataset = {}
 for jdn = min_jdn, max_jdn do
   local name = jdn_map[jdn]
   if name then
-    local year, month, day = jdn_to_date(jdn)
+    local year, month, day = calendar.jdn_to_date(jdn)
     local data = dataset[year]
     if not data then
       data = {}
@@ -162,8 +159,6 @@ for jdn = min_jdn, max_jdn do
     }
   end
 end
-
--- print(dumper.encode(dataset, { pretty = true, stable = true }))
 
 local function write_lua(filename, data)
   local out = assert(io.open(filename, "w"))
