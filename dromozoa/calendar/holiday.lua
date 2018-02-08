@@ -19,16 +19,16 @@ local holidays = require "dromozoa.calendar.dataset.holidays"
 
 local min_year = holidays.min_year
 local max_year = holidays.max_year
-local years = {}
+local dataset = {}
 
 return function (year, month, day)
   if min_year <= year and year <= max_year then
-    local months = years[year]
-    if not months then
-      months = require("dromozoa.calendar.dataset.holidays" .. year)
-      years[year] = months
+    local data = dataset[year]
+    if not data then
+      data = require(("dromozoa.calendar.dataset.holidays%d"):format(year))
+      dataset[year] = data
     end
-    local item = months[month][day]
+    local item = data[month][day]
     if item then
       return item
     else
