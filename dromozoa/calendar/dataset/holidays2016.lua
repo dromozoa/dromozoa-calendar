@@ -19,22 +19,32 @@ local items = {
 }
 
 return {
-  items = items;
-  items[1];
-  items[2];
-  items[3];
-  items[4];
-  items[5];
-  items[6];
-  items[7];
-  items[8];
-  items[9];
-  items[10];
-  items[11];
-  items[12];
-  items[13];
-  items[14];
-  items[15];
-  items[16];
-  items[17];
+  {
+    [1] = items[1];
+    [11] = items[2];
+  };
+  { [11] = items[3] };
+  {
+    [20] = items[4];
+    [21] = items[5];
+  };
+  { [29] = items[6] };
+  {
+    [3] = items[7];
+    [4] = items[8];
+    [5] = items[9];
+  };
+  {};
+  { [18] = items[10] };
+  { [11] = items[11] };
+  {
+    [19] = items[12];
+    [22] = items[13];
+  };
+  { [10] = items[14] };
+  {
+    [3] = items[15];
+    [23] = items[16];
+  };
+  { [23] = items[17] };
 }

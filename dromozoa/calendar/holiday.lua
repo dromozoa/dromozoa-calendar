@@ -25,16 +25,8 @@ return function (year, month, day)
   if min_year <= year and year <= max_year then
     local months = years[year]
     if not months then
-      months = {}
-      for month = 1, 12 do
-        months[month] = {}
-      end
-
-      local data = require("dromozoa.calendar.dataset.holidays" .. year)
-      for i = 1, #data do
-        local item = data[i]
-        months[item.month][item.day] = item
-      end
+      months = require("dromozoa.calendar.dataset.holidays" .. year)
+      years[year] = months
     end
     local item = months[month][day]
     if item then
