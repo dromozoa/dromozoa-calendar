@@ -15,6 +15,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
+local dumper = require "dromozoa.commons.dumper"
 local date_to_jdn = require "dromozoa.calendar.date_to_jdn"
 local jdn_to_date = require "dromozoa.calendar.jdn_to_date"
 
@@ -37,7 +38,7 @@ local name_map = {
   ["天皇誕生日"] = true;
 }
 
-local data = {}
+local jdn_map = {}
 
 local handle = assert(io.popen("cat docs/cao.go.jp/*.csv | iconv -f CP932"))
 for line in handle:lines() do
@@ -48,11 +49,11 @@ for line in handle:lines() do
     month = assert(tonumber(month, 10))
     day = assert(tonumber(day, 10))
     local jdn = date_to_jdn(year, month, day)
-    local item = data[jdn]
+    local item = jdn_map[jdn]
     if item then
       assert(item == name)
     else
-      data[jdn] = name
+      jdn_map[jdn] = name
     end
   end
 end
@@ -67,21 +68,21 @@ for line in handle:lines() do
   month = assert(tonumber(month, 10))
   day = assert(tonumber(day, 10))
   local jdn = date_to_jdn(year, month, day)
-  local item = data[jdn]
+  local item = jdn_map[jdn]
   if item then
     assert(item == name)
   else
     if name:find "休日$" then
       assert(name == "振替休日" or name == "国民の休日")
     end
-    data[jdn] = name
+    jdn_map[jdn] = name
   end
 end
 
 local min_year
 local max_year
 
-for jdn, name in pairs(data) do
+for jdn, name in pairs(jdn_map) do
   local year = jdn_to_date(jdn)
   if not min_year or min_year > year then
     min_year = year
@@ -92,7 +93,7 @@ for jdn, name in pairs(data) do
 end
 
 local function is_holiday(jdn)
-  local name = data[jdn]
+  local name = jdn_map[jdn]
   return name and not name:find "休日$"
 end
 
@@ -104,11 +105,11 @@ for jdn = min_jdn, max_jdn do
     local next_jdn = jdn + 1
     while true do
       if not is_holiday(next_jdn) then
-        local name = data[next_jdn]
+        local name = jdn_map[next_jdn]
         if name then
           assert(name == "振替休日")
         else
-          data[next_jdn] = "振替休日"
+          jdn_map[next_jdn] = "振替休日"
         end
         break
       end
@@ -120,18 +121,102 @@ for jdn = min_jdn, max_jdn do
   local prev_jdn = jdn - 1
   local next_jdn = jdn + 1
   if is_holiday(prev_jdn) and is_holiday(next_jdn) and not is_holiday(jdn) then
-    local name = data[jdn]
+    local name = jdn_map[jdn]
     if name then
       -- print(item, jdn_to_date(jdn))
       assert(name == "国民の休日")
     else
-      data[jdn] = "国民の休日"
+      jdn_map[jdn] = "国民の休日"
     end
   end
 end
 for jdn = min_jdn, max_jdn do
   if is_holiday(jdn) then
-    local name = data[jdn]
+    local name = jdn_map[jdn]
     assert(name_map[name])
   end
 end
+
+local dataset = {}
+for jdn = min_jdn, max_jdn do
+  local name = jdn_map[jdn]
+  if name then
+    local year, month, day = jdn_to_date(jdn)
+    local data = dataset[year]
+    if not data then
+      data = {}
+      dataset[year] = data
+    end
+    local kind
+    if name:find "休日$" then
+      kind = "休日"
+    else
+      kind = "祝日"
+    end
+    data[#data + 1] = {
+      name = name;
+      kind = kind;
+      year = year;
+      month = month;
+      day = day;
+    }
+  end
+end
+
+-- print(dumper.encode(dataset, { pretty = true, stable = true }))
+
+local function write_lua(filename, data)
+  local out = assert(io.open(filename, "w"))
+  out:write "return {\n"
+  for i = 1, #data do
+    local item = data[i]
+    out:write(([[
+  { year = %d, month = %2d, day = %2d, kind = "%s", name = "%s" };
+]]):format(item.year, item.month, item.day, item.kind, item.name))
+  end
+  out:write "}\n"
+  out:close()
+end
+
+local function write_json(filename, data)
+  local out = assert(io.open(filename, "w"))
+  out:write "[\n"
+  for i = 1, #data do
+    local item = data[i]
+    local comma = ","
+    if i == #data then
+      comma = ""
+    end
+    out:write(([[
+  { "year": %d, "month": %2d, "day": %2d, "kind": "%s", "name": "%s" }%s
+]]):format(item.year, item.month, item.day, item.kind, item.name, comma))
+  end
+  out:write "]\n"
+  out:close()
+end
+
+os.execute("mkdir -p dromozoa/calendar/dataset")
+for year = min_year, max_year do
+  local filename = ("dromozoa/calendar/dataset/holidays%04d.lua"):format(year)
+  write_lua(filename, dataset[year])
+end
+
+local filename = "dromozoa/calendar/dataset/holidays.lua"
+local out = assert(io.open(filename, "w"))
+out:write(([[
+return { min_year = %d, max_year = %d }
+]]):format(min_year, max_year))
+out:close()
+
+os.execute("mkdir -p docs/dataset")
+for year = min_year, max_year do
+  local filename = ("docs/dataset/holidays%04d.json"):format(year)
+  write_json(filename, dataset[year])
+end
+
+local filename = "docs/dataset/holidays.json"
+local out = assert(io.open(filename, "w"))
+out:write(([[
+{ "min_year": %d, "max_year": %d }
+]]):format(min_year, max_year))
+out:close()
