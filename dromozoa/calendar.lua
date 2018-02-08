@@ -15,34 +15,8 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local holidays = require "dromozoa.calendar.dataset.holidays"
-
-local min_year = holidays.min_year
-local max_year = holidays.max_year
-local years = {}
-
-return function (year, month, day)
-  if min_year <= year and year <= max_year then
-    local months = years[year]
-    if not months then
-      months = {}
-      for month = 1, 12 do
-        months[month] = {}
-      end
-
-      local data = require("dromozoa.calendar.dataset.holidays" .. year)
-      for i = 1, #data do
-        local item = data[i]
-        months[item.month][item.day] = item
-      end
-    end
-    local item = months[month][day]
-    if item then
-      return item
-    else
-      return false
-    end
-  else
-    return nil
-  end
-end
+return {
+  date_to_jdn = require "dromozoa.calendar.date_to_jdn";
+  jdn_to_date = require "dromozoa.calendar.jdn_to_date";
+  is_holiday = require "dromozoa.calendar.is_holiday";
+}
