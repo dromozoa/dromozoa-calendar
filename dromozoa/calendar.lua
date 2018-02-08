@@ -18,5 +18,5 @@
 return {
   date_to_jdn = require "dromozoa.calendar.date_to_jdn";
   jdn_to_date = require "dromozoa.calendar.jdn_to_date";
-  holiday = require "dromozoa.calendar.holiday";
+  is_holiday = require "dromozoa.calendar.is_holiday";
 }

@@ -15,16 +15,16 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local holiday = require "dromozoa.calendar.holiday"
+local is_holiday = require "dromozoa.calendar.is_holiday"
 
-assert(holiday(2005, 1, 1) == nil)
-local item = holiday(2006, 1, 1)
+assert(is_holiday(2005, 1, 1) == nil)
+local item = is_holiday(2006, 1, 1)
 assert(item.kind == "祝日")
 assert(item.name == "元日")
-local item = holiday(2006, 1, 2)
+local item = is_holiday(2006, 1, 2)
 assert(item.kind == "休日")
 assert(item.name == "振替休日")
-assert(holiday(2006, 1, 3) == false)
-local item = holiday(2006, 5, 4)
+assert(is_holiday(2006, 1, 3) == false)
+local item = is_holiday(2006, 5, 4)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
