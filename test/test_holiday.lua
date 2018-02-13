@@ -30,7 +30,10 @@ local item = is_holiday(2006, 5, 4)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
-for i = 1, #holidays.data do
-  local item = holidays.data[i]
-  -- io.write(("%4d年%2d月%2d日 %s\n"):format(item.year, item.month, item.day, item.name))
+assert(holidays.min_year == 2006)
+assert(holidays.max_year == 2019)
+for year = holidays.min_year, holidays.max_year do
+  for month = 1, 12 do
+    assert(holidays.tree[year][month])
+  end
 end
