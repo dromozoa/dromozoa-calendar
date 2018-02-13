@@ -151,11 +151,11 @@ for jdn = min_jdn, max_jdn do
       kind = "祝日"
     end
     data[#data + 1] = {
-      name = name;
-      kind = kind;
       year = year;
       month = month;
       day = day;
+      kind = kind;
+      name = name;
     }
   end
 end
@@ -164,18 +164,31 @@ local function write_lua(filename, data)
   local out = assert(io.open(filename, "w"))
 
 out:write [[
-local _ = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
+local data = {
 ]]
 
   for i = 1, #data do
     local item = data[i]
     out:write(([[
-_[%2d][%2d] = { kind = "%s", name = "%s" };
-]]):format(item.month, item.day, item.kind, item.name))
+  { year = %2d, month = %2d, day = %2d, kind = "%s", name = "%s" };
+]]):format(item.year, item.month, item.day, item.kind, item.name))
   end
 
 out:write [[
-return _
+}
+
+local tree = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
+]]
+
+  for i = 1, #data do
+    local item = data[i]
+    out:write(([[
+tree[%2d][%2d] = data[%2d]
+]]):format(item.month, item.day, i))
+  end
+
+out:write [[
+return tree
 ]]
 
   out:close()
