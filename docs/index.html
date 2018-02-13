@@ -56,6 +56,7 @@
       <li><a href="cybozu.co.jp/holiday2019.csv">2019年 祝日データ</a></li>
     </ul>
   </li>
+  <li><a href="holidays.json">holidays.json</a></li>
 </ul>
 
 <h2>国民の祝日に関する法律</h2>
@@ -68,12 +69,6 @@
   <li>その前日及び翌日が「国民の祝日」である日（「国民の祝日」でない日に限る。）は、休日とする。</li>
 </ol>
 
-<h2>データセット</h2>
-
-<ul class="dataset">
-  <li><a href="dataset/holidays.json">dataset/holidays.json</a></li>
-</ul>
-
 </div>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -83,20 +78,5 @@ MathJax.Hub.Config({
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-(function (root) {
-  let $ = root.jQuery;
-  $(function () {
-    $.getJSON("dataset/holidays.json").done(function (data) {
-      let $dataset = $(".dataset");
-      for (let year = data.min_year; year <= data.max_year; ++year) {
-        const filename = "dataset/holidays" + year + ".json";
-        $dataset.append($("<li>").append($("<a>").attr("href", filename).text(filename)));
-      }
-    });
-  });
-}(this));
-</script>
 </body>
 </html>

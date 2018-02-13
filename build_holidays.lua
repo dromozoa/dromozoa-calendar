@@ -134,16 +134,11 @@ for jdn = min_jdn, max_jdn do
   end
 end
 
-local dataset = {}
+local data = {}
 for jdn = min_jdn, max_jdn do
   local name = jdn_map[jdn]
   if name then
     local year, month, day = calendar.jdn_to_date(jdn)
-    local data = dataset[year]
-    if not data then
-      data = {}
-      dataset[year] = data
-    end
     local kind
     if name:find "休日$" then
       kind = "休日"
@@ -151,31 +146,44 @@ for jdn = min_jdn, max_jdn do
       kind = "祝日"
     end
     data[#data + 1] = {
-      name = name;
-      kind = kind;
       year = year;
       month = month;
       day = day;
+      kind = kind;
+      name = name;
     }
   end
 end
 
+--[====[
 local function write_lua(filename, data)
   local out = assert(io.open(filename, "w"))
 
 out:write [[
-local _ = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
+local data = {
 ]]
 
   for i = 1, #data do
     local item = data[i]
     out:write(([[
-_[%2d][%2d] = { kind = "%s", name = "%s" };
-]]):format(item.month, item.day, item.kind, item.name))
+  { year = %2d, month = %2d, day = %2d, kind = "%s", name = "%s" };
+]]):format(item.year, item.month, item.day, item.kind, item.name))
   end
 
 out:write [[
-return _
+}
+
+local tree = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
+]]
+
+  for i = 1, #data do
+    local item = data[i]
+    out:write(([[
+tree[%2d][%2d] = data[%2d]
+]]):format(item.month, item.day, i))
+  end
+out:write [[
+return { data = data, tree = tree }
 ]]
 
   out:close()
@@ -211,15 +219,84 @@ return { min_year = %d, max_year = %d }
 ]]):format(min_year, max_year))
 out:close()
 
-os.execute("mkdir -p docs/dataset")
-for year = min_year, max_year do
-  local filename = ("docs/dataset/holidays%d.json"):format(year)
-  write_json(filename, dataset[year])
+]====]
+
+
+os.execute("mkdir -p dromozoa/calendar")
+
+local filename = "dromozoa/calendar/holidays.lua"
+local out = assert(io.open(filename, "w"))
+out:write [[
+local data = {
+]]
+
+for i = 1, #data do
+  local item = data[i]
+  out:write(([[
+  { year = %4d, month = %2d, day = %2d, kind = "%s", name = "%s" };
+]]):format(item.year, item.month, item.day, item.kind, item.name))
 end
 
-local filename = "docs/dataset/holidays.json"
+out:write [[
+}
+
+local tree = {
+]]
+
+for year = min_year, max_year do
+  out:write(([[
+  [%4d] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+]]):format(year))
+end
+
+out:write [[
+}
+]]
+
+for i = 1, #data do
+  local item = data[i]
+  out:write(([[
+tree[%4d][%2d][%2d] = data[%3d]
+]]):format(item.year, item.month, item.day, i))
+end
+
+out:write(([[
+
+return {
+  min_year = %d;
+  max_year = %d;
+  data = data;
+  tree = tree;
+}
+]]):format(min_year, max_year))
+
+out:close()
+
+os.execute("mkdir -p docs")
+
+local filename = "docs/holidays.json"
 local out = assert(io.open(filename, "w"))
 out:write(([[
-{ "min_year": %d, "max_year": %d }
+{
+  "min_year": %d,
+  "max_year": %d,
+  "data": [
 ]]):format(min_year, max_year))
+
+for i = 1, #data do
+  local item = data[i]
+  local comma = ","
+  if i == #data then
+    comma = ""
+  end
+  out:write(([[
+    { "year": %d, "month": %2d, "day": %2d, "kind": "%s", "name": "%s" }%s
+]]):format(item.year, item.month, item.day, item.kind, item.name, comma))
+end
+
+out:write [[
+  ]
+}
+]]
+
 out:close()
