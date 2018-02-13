@@ -221,6 +221,57 @@ out:close()
 
 ]====]
 
+
+os.execute("mkdir -p dromozoa/calendar")
+
+local filename = "dromozoa/calendar/holidays.lua"
+local out = assert(io.open(filename, "w"))
+out:write [[
+local data = {
+]]
+
+for i = 1, #data do
+  local item = data[i]
+  out:write(([[
+  { year = %4d, month = %2d, day = %2d, kind = "%s", name = "%s" };
+]]):format(item.year, item.month, item.day, item.kind, item.name))
+end
+
+out:write [[
+}
+
+local tree = {
+]]
+
+for year = min_year, max_year do
+  out:write(([[
+  [%4d] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+]]):format(year))
+end
+
+out:write [[
+}
+]]
+
+for i = 1, #data do
+  local item = data[i]
+  out:write(([[
+tree[%4d][%2d][%2d] = data[%3d]
+]]):format(item.year, item.month, item.day, i))
+end
+
+out:write(([[
+
+return {
+  min_year = %d;
+  max_year = %d;
+  data = data;
+  tree = tree;
+}
+]]):format(min_year, max_year))
+
+out:close()
+
 os.execute("mkdir -p docs")
 
 local filename = "docs/holidays.json"

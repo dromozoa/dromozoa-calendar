@@ -15,20 +15,15 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local holidays = require "dromozoa.calendar.dataset.holidays"
+local holidays = require "dromozoa.calendar.holidays"
 
 local min_year = holidays.min_year
 local max_year = holidays.max_year
-local dataset = {}
+local tree = holidays.tree
 
 return function (year, month, day)
   if min_year <= year and year <= max_year then
-    local data = dataset[year]
-    if not data then
-      data = require(("dromozoa.calendar.dataset.holidays%d"):format(year)).tree
-      dataset[year] = data
-    end
-    local item = data[month][day]
+    local item = tree[year][month][day]
     if item then
       return item
     else
