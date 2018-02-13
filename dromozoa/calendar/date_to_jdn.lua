@@ -18,12 +18,27 @@
 local floor = math.floor
 
 return function (year, month, day)
+  if month < -9 then
+    local x = -9 - month
+    local y = floor((x + 11) / 12)
+    year = year - y
+    month = month + y * 12
+  end
+
+  if month > 12 then
+    local x = month - 12
+    local y = floor((x + 11) / 12)
+    year = year + y
+    month = month - y * 12
+  end
+
   if month < 3 then
     year = year - 1
     month = month + 13
   else
     month = month + 1
   end
+
   local jdn = floor(365.25 * (year + 4716)) + floor(30.6001 * month) + day - 1524
   if jdn >= 2299161 then
     local A = floor(year / 100)
