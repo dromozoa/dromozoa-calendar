@@ -36,4 +36,4 @@ tree[10][ 9] = data[14]
 tree[11][ 3] = data[15]
 tree[11][23] = data[16]
 tree[12][23] = data[17]
-return tree
+return { data = data, tree = tree }

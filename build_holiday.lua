@@ -188,7 +188,7 @@ tree[%2d][%2d] = data[%2d]
   end
 
 out:write [[
-return tree
+return { data = data, tree = tree }
 ]]
 
   out:close()

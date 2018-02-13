@@ -40,4 +40,4 @@ tree[11][ 3] = data[16]
 tree[11][23] = data[17]
 tree[12][23] = data[18]
 tree[12][24] = data[19]
-return tree
+return { data = data, tree = tree }

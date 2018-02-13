@@ -25,7 +25,7 @@ return function (year, month, day)
   if min_year <= year and year <= max_year then
     local data = dataset[year]
     if not data then
-      data = require(("dromozoa.calendar.dataset.holidays%d"):format(year))
+      data = require(("dromozoa.calendar.dataset.holidays%d"):format(year)).tree
       dataset[year] = data
     end
     local item = data[month][day]
