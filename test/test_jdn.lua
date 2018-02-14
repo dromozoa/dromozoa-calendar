@@ -72,25 +72,25 @@ check(-1000,  2, 29, 1355867)
 check(-1001,  8, 17, 1355671)
 check(-4712,  1,  1,       0)
 
-local N = 12 * 42 - 1
-for x = 0, N do
-  local x_year = 1900 + floor(x / 12)
-  local x_month = x % 12 + 1
-  for y = -N, N do
+local N = 40 * 12 - 1
+for i = 0, N do
+  local year = 2000 + floor(i / 12)
+  local month = i % 12 + 1
+  for j = -N, N do
+    local x_year = year
+    local x_month = month + j
+
     local y_year = x_year
-    local y_month = x_month + y
-    local z_year = y_year
-    local z_month = y_month
-    while z_month < 1 do
-      z_year = z_year - 1
-      z_month = z_month + 12
+    local y_month = x_month
+    while y_month < 1 do
+      y_year = y_year - 1
+      y_month = y_month + 12
     end
-    while z_month > 12 do
-      z_year = z_year + 1
-      z_month = z_month - 12
+    while y_month > 12 do
+      y_year = y_year + 1
+      y_month = y_month - 12
     end
-    -- print(y_year, y_month, 1, z_year, z_month, 1)
-    -- print(date_to_jdn(y_year, y_month, 1), date_to_jdn(z_year, z_month, 1))
-    assert(date_to_jdn(y_year, y_month, 1) == date_to_jdn(z_year, z_month, 1))
+
+    assert(date_to_jdn(x_year, x_month, 1) == date_to_jdn(y_year, y_month, 1))
   end
 end
