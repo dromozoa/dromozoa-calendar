@@ -18,6 +18,8 @@
 local date_to_jdn = require "dromozoa.calendar.date_to_jdn"
 local jdn_to_date = require "dromozoa.calendar.jdn_to_date"
 
+local floor = math.floor
+
 assert(tostring(date_to_jdn(2000, 1, 1)) == "2451545")
 
 local year, month, day, wday = jdn_to_date(2451545)
@@ -69,3 +71,26 @@ check(-1000,  7, 12, 1356001)
 check(-1000,  2, 29, 1355867)
 check(-1001,  8, 17, 1355671)
 check(-4712,  1,  1,       0)
+
+local N = 40 * 12 - 1
+for i = 0, N do
+  local year = 2000 + floor(i / 12)
+  local month = i % 12 + 1
+  for j = -N, N do
+    local x_year = year
+    local x_month = month + j
+
+    local y_year = x_year
+    local y_month = x_month
+    while y_month < 1 do
+      y_year = y_year - 1
+      y_month = y_month + 12
+    end
+    while y_month > 12 do
+      y_year = y_year + 1
+      y_month = y_month - 12
+    end
+
+    assert(date_to_jdn(x_year, x_month, 1) == date_to_jdn(y_year, y_month, 1))
+  end
+end

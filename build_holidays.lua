@@ -155,75 +155,6 @@ for jdn = min_jdn, max_jdn do
   end
 end
 
---[====[
-local function write_lua(filename, data)
-  local out = assert(io.open(filename, "w"))
-
-out:write [[
-local data = {
-]]
-
-  for i = 1, #data do
-    local item = data[i]
-    out:write(([[
-  { year = %2d, month = %2d, day = %2d, kind = "%s", name = "%s" };
-]]):format(item.year, item.month, item.day, item.kind, item.name))
-  end
-
-out:write [[
-}
-
-local tree = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }
-]]
-
-  for i = 1, #data do
-    local item = data[i]
-    out:write(([[
-tree[%2d][%2d] = data[%2d]
-]]):format(item.month, item.day, i))
-  end
-out:write [[
-return { data = data, tree = tree }
-]]
-
-  out:close()
-end
-
-local function write_json(filename, data)
-  local out = assert(io.open(filename, "w"))
-  out:write "[\n"
-  for i = 1, #data do
-    local item = data[i]
-    local comma = ","
-    if i == #data then
-      comma = ""
-    end
-    out:write(([[
-  { "year": %d, "month": %2d, "day": %2d, "kind": "%s", "name": "%s" }%s
-]]):format(item.year, item.month, item.day, item.kind, item.name, comma))
-  end
-  out:write "]\n"
-  out:close()
-end
-
-os.execute("mkdir -p dromozoa/calendar/dataset")
-for year = min_year, max_year do
-  local filename = ("dromozoa/calendar/dataset/holidays%d.lua"):format(year)
-  write_lua(filename, dataset[year])
-end
-
-local filename = "dromozoa/calendar/dataset/holidays.lua"
-local out = assert(io.open(filename, "w"))
-out:write(([[
-return { min_year = %d, max_year = %d }
-]]):format(min_year, max_year))
-out:close()
-
-]====]
-
-
-os.execute("mkdir -p dromozoa/calendar")
-
 local filename = "dromozoa/calendar/holidays.lua"
 local out = assert(io.open(filename, "w"))
 out:write [[
@@ -263,8 +194,8 @@ end
 out:write(([[
 
 return {
-  min_year = %d;
-  max_year = %d;
+  min_year = %4d;
+  max_year = %4d;
   data = data;
   tree = tree;
 }
@@ -272,14 +203,12 @@ return {
 
 out:close()
 
-os.execute("mkdir -p docs")
-
 local filename = "docs/holidays.json"
 local out = assert(io.open(filename, "w"))
 out:write(([[
 {
-  "min_year": %d,
-  "max_year": %d,
+  "min_year": %4d,
+  "max_year": %4d,
   "data": [
 ]]):format(min_year, max_year))
 
@@ -290,7 +219,7 @@ for i = 1, #data do
     comma = ""
   end
   out:write(([[
-    { "year": %d, "month": %2d, "day": %2d, "kind": "%s", "name": "%s" }%s
+    { "year": %4d, "month": %2d, "day": %2d, "kind": "%s", "name": "%s" }%s
 ]]):format(item.year, item.month, item.day, item.kind, item.name, comma))
 end
 
