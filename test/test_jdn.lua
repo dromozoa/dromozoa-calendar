@@ -94,3 +94,7 @@ for i = 0, N do
     assert(date_to_jdn(x_year, x_month, 1) == date_to_jdn(y_year, y_month, 1))
   end
 end
+
+assert(date_to_jdn(1999, 2, 31) == date_to_jdn(1999, 3, 3))
+assert(date_to_jdn(2000, 2, 31) == date_to_jdn(2000, 3, 2))
+assert(date_to_jdn(2001, 2, 31) == date_to_jdn(2001, 3, 3))
