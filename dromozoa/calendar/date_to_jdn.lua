@@ -18,14 +18,14 @@
 local floor = math.floor
 
 return function (year, month, day)
-  local A = floor((month - 3) / 12)
-  year = year + A
-  month = month + 1 - A * 12
+  local y = floor((month - 3) / 12)
+  year = year + y
+  month = month + 1 - y * 12
 
   local jdn = floor(365.25 * (year + 4716)) + floor(30.6001 * month) + day - 1524
   if jdn >= 2299161 then
-    local B = floor(year / 100)
-    jdn = jdn + 2 - B + floor(B / 4)
+    local A = floor(year / 100)
+    jdn = jdn + 2 - A + floor(A / 4)
   end
   return jdn
 end
