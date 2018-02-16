@@ -37,3 +37,5 @@ for year = holidays.min_year, holidays.max_year do
     assert(holidays.tree[year][month])
   end
 end
+
+assert(is_holiday("2018", "01", "08"))
