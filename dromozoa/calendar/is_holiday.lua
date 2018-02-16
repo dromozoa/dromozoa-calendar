@@ -22,8 +22,9 @@ local max_year = holidays.max_year
 local tree = holidays.tree
 
 return function (year, month, day)
+  year = tonumber(year)
   if min_year <= year and year <= max_year then
-    local item = tree[year][month][day]
+    local item = tree[year][tonumber(month)][tonumber(day)]
     if item then
       return item
     else
