@@ -15,14 +15,13 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local date_to_jdn = require "dromozoa.calendar.date_to_jdn"
-local jdn_to_date = require "dromozoa.calendar.jdn_to_date"
+local calendar = require "dromozoa.calendar"
 
 local floor = math.floor
 
-assert(tostring(date_to_jdn(2000, 1, 1)) == "2451545")
+assert(tostring(calendar.date_to_jdn(2000, 1, 1)) == "2451545")
 
-local year, month, day, wday = jdn_to_date(2451545)
+local year, month, day, wday = calendar.jdn_to_date(2451545)
 assert(year  == 2000)
 assert(month == 1)
 assert(day   == 1)
@@ -33,8 +32,8 @@ assert(tostring(day)   == "1")
 assert(tostring(wday)  == "6")
 
 local function check(year, month, day, jdn)
-  assert(date_to_jdn(year, month, day) == jdn)
-  local result = { jdn_to_date(jdn) }
+  assert(calendar.date_to_jdn(year, month, day) == jdn)
+  local result = { calendar.jdn_to_date(jdn) }
   assert(result[1] == year)
   assert(result[2] == month)
   assert(result[3] == day)
@@ -91,10 +90,10 @@ for i = 0, N do
       y_month = y_month - 12
     end
 
-    assert(date_to_jdn(x_year, x_month, 1) == date_to_jdn(y_year, y_month, 1))
+    assert(calendar.date_to_jdn(x_year, x_month, 1) == calendar.date_to_jdn(y_year, y_month, 1))
   end
 end
 
-assert(date_to_jdn(1999, 2, 31) == date_to_jdn(1999, 3, 3))
-assert(date_to_jdn(2000, 2, 31) == date_to_jdn(2000, 3, 2))
-assert(date_to_jdn(2001, 2, 31) == date_to_jdn(2001, 3, 3))
+assert(calendar.date_to_jdn(1999, 2, 31) == calendar.date_to_jdn(1999, 3, 3))
+assert(calendar.date_to_jdn(2000, 2, 31) == calendar.date_to_jdn(2000, 3, 2))
+assert(calendar.date_to_jdn(2001, 2, 31) == calendar.date_to_jdn(2001, 3, 3))
