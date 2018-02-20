@@ -15,8 +15,9 @@
 -- You should have received a copy of the GNU General Public License
 -- along with dromozoa-calendar.  If not, see <http://www.gnu.org/licenses/>.
 
-local holidays = require "dromozoa.calendar.holidays"
-local is_holiday = require "dromozoa.calendar.is_holiday"
+local calendar = require "dromozoa.calendar"
+local holidays = calendar.holidays
+local is_holiday = calendar.is_holiday
 
 assert(is_holiday(2005, 1, 1) == nil)
 local item = is_holiday(2006, 1, 1)
