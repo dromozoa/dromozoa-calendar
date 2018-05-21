@@ -38,7 +38,7 @@ local name_map = {
 
 local jdn_map = {}
 
-local handle = assert(io.popen("cat docs/cao.go.jp/*.csv | iconv -f CP932"))
+local handle = assert(io.popen "cat docs/cao.go.jp/*.csv | iconv -f CP932")
 for line in handle:lines() do
   line = line:gsub("\r$", "")
   if line ~= "国民の祝日月日,国民の祝日名称" then
@@ -57,7 +57,7 @@ for line in handle:lines() do
 end
 handle:close()
 
-local handle = assert(io.popen("cat docs/cybozu.co.jp/*.csv | iconv -f CP932"))
+local handle = assert(io.popen "cat docs/cybozu.co.jp/*.csv | iconv -f CP932")
 for line in handle:lines() do
   line = line:gsub("\r$", "")
   line = line:gsub("^\"(%d+/%d+/%d+)\t*\",", "%1,")
