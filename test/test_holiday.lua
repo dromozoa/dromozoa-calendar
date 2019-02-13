@@ -1,4 +1,4 @@
--- Copyright (C) 2018 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2019 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -30,7 +30,7 @@ assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 assert(calendar.holidays.min_year == 2006)
-assert(calendar.holidays.max_year == 2019)
+assert(calendar.holidays.max_year == 2020)
 for year = calendar.holidays.min_year, calendar.holidays.max_year do
   for month = 1, 12 do
     assert(calendar.holidays.tree[year][month])
