@@ -43,6 +43,7 @@ assert(calendar.is_holiday("2018", "01", "08"))
 local jdn = calendar.date_to_jdn(2019, 4, 27)
 local _, _, _, wday = calendar.jdn_to_date(jdn)
 assert(wday == 6)
+local start_jdn = jdn
 
 -- 2019-04-28 (Sun)
 jdn = jdn + 1
@@ -91,3 +92,11 @@ assert(year == 2019)
 assert(month == 5)
 assert(day == 5)
 assert(wday == 0)
+
+-- 2019-05-06 (Mon)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "休日")
+assert(item.name == "振替休日")
+
+assert(jdn - start_jdn + 1 == 10)
