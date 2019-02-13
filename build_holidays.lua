@@ -1,4 +1,4 @@
--- Copyright (C) 2018 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2019 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -34,28 +34,47 @@ local name_map = {
   ["文化の日"] = true;
   ["勤労感謝の日"] = true;
   ["天皇誕生日"] = true;
+  ["休日（祝日扱い）"] = true;
+  ["スポーツの日"] = true;
 }
 
 local jdn_map = {}
 
-local handle = assert(io.popen "cat docs/cao.go.jp/*.csv | iconv -f CP932")
-for line in handle:lines() do
-  line = line:gsub("\r$", "")
-  if line ~= "国民の祝日月日,国民の祝日名称" then
-    local year, month, day, name = assert(line:match "^(%d%d%d%d)%-(%d%d)%-(%d%d),([^,]+)$")
-    year = assert(tonumber(year, 10))
-    month = assert(tonumber(month, 10))
-    day = assert(tonumber(day, 10))
-    local jdn = calendar.date_to_jdn(year, month, day)
-    local item = jdn_map[jdn]
-    if item then
-      assert(item == name)
+local function read_csv(file, ignore)
+  local handle = assert(io.popen("iconv -f CP932 <'" ..file .. "'"))
+  local i = 0
+  for line in handle:lines() do
+    i = i + 1
+    line = line:gsub("\r$", "")
+    if i == 1 then
+      assert(line == "国民の祝日月日,国民の祝日名称" or line == "国民の祝日・休日月日,国民の祝日・休日名称")
     else
-      jdn_map[jdn] = name
+      local year, month, day, name = line:match "^(%d%d%d%d)%-(%d%d)%-(%d%d),([^,]+)$"
+      if not year then
+        year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),([^,]+)$")
+      end
+      year = assert(tonumber(year, 10))
+      month = assert(tonumber(month, 10))
+      day = assert(tonumber(day, 10))
+      assert(1 <= month and month <= 12)
+      assert(1 <= day and day <= 31)
+      if not ignore[year] then
+        local jdn = calendar.date_to_jdn(year, month, day)
+        local item = jdn_map[jdn]
+        if item then
+          assert(item == name)
+        else
+          jdn_map[jdn] = name
+        end
+      end
     end
   end
+  handle:close()
 end
-handle:close()
+
+read_csv("docs/cao.go.jp/syukujitsu-2016-2018.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-2017-2019.csv", { [2019] = true })
+read_csv("docs/cao.go.jp/syukujitsu-2019-2020.csv", {})
 
 local handle = assert(io.popen "cat docs/cybozu.co.jp/*.csv | iconv -f CP932")
 for line in handle:lines() do
@@ -68,7 +87,17 @@ for line in handle:lines() do
   local jdn = calendar.date_to_jdn(year, month, day)
   local item = jdn_map[jdn]
   if item then
-    assert(item == name)
+    if item == "休日" then
+      assert(name == "振替休日" or name == "国民の休日")
+      jdn_map[jdn] = name
+    elseif item == "休日（祝日扱い）" then
+      assert(name:find "^即位")
+    elseif item == "体育の日（スポーツの日）" then
+      assert(name == "体育の日")
+      jdn_map[jdn] = name
+    else
+      assert(item == name, ("%04d-%02d-%02d %s / %s"):format(year, month, day, item, name))
+    end
   else
     if name:find "休日$" then
       assert(name == "振替休日" or name == "国民の休日")
@@ -130,7 +159,7 @@ end
 for jdn = min_jdn, max_jdn do
   if is_holiday(jdn) then
     local name = jdn_map[jdn]
-    assert(name_map[name])
+    assert(name_map[name], name)
   end
 end
 

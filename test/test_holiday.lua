@@ -1,4 +1,4 @@
--- Copyright (C) 2018 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2019 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -30,7 +30,7 @@ assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 assert(calendar.holidays.min_year == 2006)
-assert(calendar.holidays.max_year == 2019)
+assert(calendar.holidays.max_year == 2020)
 for year = calendar.holidays.min_year, calendar.holidays.max_year do
   for month = 1, 12 do
     assert(calendar.holidays.tree[year][month])
@@ -38,3 +38,56 @@ for year = calendar.holidays.min_year, calendar.holidays.max_year do
 end
 
 assert(calendar.is_holiday("2018", "01", "08"))
+
+-- 2019-04-27 (Sat)
+local jdn = calendar.date_to_jdn(2019, 4, 27)
+local _, _, _, wday = calendar.jdn_to_date(jdn)
+assert(wday == 6)
+
+-- 2019-04-28 (Sun)
+jdn = jdn + 1
+local _, _, _, wday = calendar.jdn_to_date(jdn)
+assert(wday == 0)
+
+-- 2019-04-29 (Mon)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "祝日")
+assert(item.name == "昭和の日")
+
+-- 2019-04-30 (Tue)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "休日")
+assert(item.name == "国民の休日")
+
+-- 2019-05-01 (Wed)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "祝日")
+assert(item.name == "休日（祝日扱い）")
+
+-- 2019-05-02 (Thu)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "休日")
+assert(item.name == "国民の休日")
+
+-- 2019-05-03 (Fri)
+jdn = jdn + 1
+local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item.kind == "祝日")
+assert(item.name == "憲法記念日")
+
+-- 2019-05-04 (Sat)
+jdn = jdn + 1
+local _, _, _, wday = calendar.jdn_to_date(jdn)
+assert(wday == 6)
+
+-- 2019-05-05 (Sun)
+jdn = jdn + 1
+local year, month, day, wday = calendar.jdn_to_date(jdn)
+assert(year == 2019)
+assert(month == 5)
+assert(day == 5)
+assert(wday == 0)

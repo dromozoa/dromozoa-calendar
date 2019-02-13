@@ -227,6 +227,9 @@ local data = {
   { year = 2019, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
   { year = 2019, month =  3, day = 21, kind = "祝日", name = "春分の日" };
   { year = 2019, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2019, month =  4, day = 30, kind = "休日", name = "国民の休日" };
+  { year = 2019, month =  5, day =  1, kind = "祝日", name = "休日（祝日扱い）" };
+  { year = 2019, month =  5, day =  2, kind = "休日", name = "国民の休日" };
   { year = 2019, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
   { year = 2019, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
   { year = 2019, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
@@ -237,9 +240,28 @@ local data = {
   { year = 2019, month =  9, day = 16, kind = "祝日", name = "敬老の日" };
   { year = 2019, month =  9, day = 23, kind = "祝日", name = "秋分の日" };
   { year = 2019, month = 10, day = 14, kind = "祝日", name = "体育の日" };
+  { year = 2019, month = 10, day = 22, kind = "祝日", name = "休日（祝日扱い）" };
   { year = 2019, month = 11, day =  3, kind = "祝日", name = "文化の日" };
   { year = 2019, month = 11, day =  4, kind = "休日", name = "振替休日" };
   { year = 2019, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2020, month =  1, day =  1, kind = "祝日", name = "元日" };
+  { year = 2020, month =  1, day = 13, kind = "祝日", name = "成人の日" };
+  { year = 2020, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
+  { year = 2020, month =  2, day = 23, kind = "祝日", name = "天皇誕生日" };
+  { year = 2020, month =  2, day = 24, kind = "休日", name = "振替休日" };
+  { year = 2020, month =  3, day = 20, kind = "祝日", name = "春分の日" };
+  { year = 2020, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2020, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
+  { year = 2020, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
+  { year = 2020, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
+  { year = 2020, month =  5, day =  6, kind = "休日", name = "振替休日" };
+  { year = 2020, month =  7, day = 23, kind = "祝日", name = "海の日" };
+  { year = 2020, month =  7, day = 24, kind = "祝日", name = "スポーツの日" };
+  { year = 2020, month =  8, day = 10, kind = "祝日", name = "山の日" };
+  { year = 2020, month =  9, day = 21, kind = "祝日", name = "敬老の日" };
+  { year = 2020, month =  9, day = 22, kind = "祝日", name = "秋分の日" };
+  { year = 2020, month = 11, day =  3, kind = "祝日", name = "文化の日" };
+  { year = 2020, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
 }
 
 local tree = {
@@ -257,6 +279,7 @@ local tree = {
   [2017] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2018] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2019] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+  [2020] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
 }
 tree[2006][ 1][ 1] = data[  1]
 tree[2006][ 1][ 2] = data[  2]
@@ -486,23 +509,45 @@ tree[2019][ 1][14] = data[225]
 tree[2019][ 2][11] = data[226]
 tree[2019][ 3][21] = data[227]
 tree[2019][ 4][29] = data[228]
-tree[2019][ 5][ 3] = data[229]
-tree[2019][ 5][ 4] = data[230]
-tree[2019][ 5][ 5] = data[231]
-tree[2019][ 5][ 6] = data[232]
-tree[2019][ 7][15] = data[233]
-tree[2019][ 8][11] = data[234]
-tree[2019][ 8][12] = data[235]
-tree[2019][ 9][16] = data[236]
-tree[2019][ 9][23] = data[237]
-tree[2019][10][14] = data[238]
-tree[2019][11][ 3] = data[239]
-tree[2019][11][ 4] = data[240]
-tree[2019][11][23] = data[241]
+tree[2019][ 4][30] = data[229]
+tree[2019][ 5][ 1] = data[230]
+tree[2019][ 5][ 2] = data[231]
+tree[2019][ 5][ 3] = data[232]
+tree[2019][ 5][ 4] = data[233]
+tree[2019][ 5][ 5] = data[234]
+tree[2019][ 5][ 6] = data[235]
+tree[2019][ 7][15] = data[236]
+tree[2019][ 8][11] = data[237]
+tree[2019][ 8][12] = data[238]
+tree[2019][ 9][16] = data[239]
+tree[2019][ 9][23] = data[240]
+tree[2019][10][14] = data[241]
+tree[2019][10][22] = data[242]
+tree[2019][11][ 3] = data[243]
+tree[2019][11][ 4] = data[244]
+tree[2019][11][23] = data[245]
+tree[2020][ 1][ 1] = data[246]
+tree[2020][ 1][13] = data[247]
+tree[2020][ 2][11] = data[248]
+tree[2020][ 2][23] = data[249]
+tree[2020][ 2][24] = data[250]
+tree[2020][ 3][20] = data[251]
+tree[2020][ 4][29] = data[252]
+tree[2020][ 5][ 3] = data[253]
+tree[2020][ 5][ 4] = data[254]
+tree[2020][ 5][ 5] = data[255]
+tree[2020][ 5][ 6] = data[256]
+tree[2020][ 7][23] = data[257]
+tree[2020][ 7][24] = data[258]
+tree[2020][ 8][10] = data[259]
+tree[2020][ 9][21] = data[260]
+tree[2020][ 9][22] = data[261]
+tree[2020][11][ 3] = data[262]
+tree[2020][11][23] = data[263]
 
 return {
   min_year = 2006;
-  max_year = 2019;
+  max_year = 2020;
   data = data;
   tree = tree;
 }
