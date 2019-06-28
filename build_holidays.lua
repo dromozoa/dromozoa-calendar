@@ -75,6 +75,7 @@ end
 read_csv("docs/cao.go.jp/syukujitsu-2016-2018.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-2017-2019.csv", { [2019] = true })
 read_csv("docs/cao.go.jp/syukujitsu-2019-2020.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-1955-2020.csv", {})
 
 local handle = assert(io.popen "cat docs/cybozu.co.jp/*.csv | iconv -f CP932")
 for line in handle:lines() do
@@ -134,7 +135,11 @@ for jdn = min_jdn, max_jdn do
       if not is_holiday(next_jdn) then
         local name = jdn_map[next_jdn]
         if name then
-          assert(name == "振替休日")
+          if name == "休日" then
+            jdn_map[next_jdn] = "振替休日"
+          else
+            assert(name == "振替休日", ("%d-%02d-%02d %s"):format(year, month, day, name))
+          end
         else
           jdn_map[next_jdn] = "振替休日"
         end
@@ -150,7 +155,12 @@ for jdn = min_jdn, max_jdn do
   if is_holiday(prev_jdn) and is_holiday(next_jdn) and not is_holiday(jdn) then
     local name = jdn_map[jdn]
     if name then
-      assert(name == "国民の休日")
+      local year, month, day = calendar.jdn_to_date(jdn)
+      if name == "振替休日" or name == "休日" then
+        jdn_map[jdn] = "国民の休日"
+      else
+        assert(name == "国民の休日", ("%d-%02d-%02d %s"):format(year, month, day, name))
+      end
     else
       jdn_map[jdn] = "国民の休日"
     end
