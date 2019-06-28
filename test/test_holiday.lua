@@ -17,7 +17,7 @@
 
 local calendar = require "dromozoa.calendar"
 
-assert(calendar.is_holiday(2005, 1, 1) == nil)
+assert(calendar.is_holiday(1954, 1, 1) == nil)
 local item = calendar.is_holiday(2006, 1, 1)
 assert(item.kind == "祝日")
 assert(item.name == "元日")
@@ -29,7 +29,7 @@ local item = calendar.is_holiday(2006, 5, 4)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
-assert(calendar.holidays.min_year == 2006)
+assert(calendar.holidays.min_year == 1955)
 assert(calendar.holidays.max_year == 2020)
 for year = calendar.holidays.min_year, calendar.holidays.max_year do
   for month = 1, 12 do
