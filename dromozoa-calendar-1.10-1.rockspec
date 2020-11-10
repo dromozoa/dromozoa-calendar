@@ -1,9 +1,9 @@
 rockspec_format = "3.0"
 package = "dromozoa-calendar"
-version = "1.9-1"
+version = "1.10-1"
 source = {
-  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.9.tar.gz";
-  file = "dromozoa-calendar-1.9.tar.gz";
+  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.10.tar.gz";
+  file = "dromozoa-calendar-1.10.tar.gz";
 }
 description = {
   summary = "Date functions and Japanese calendar";
