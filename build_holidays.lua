@@ -53,6 +53,9 @@ local function read_csv(file, ignore)
       if not year then
         year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),([^,]+)$")
       end
+      if name == "結婚の儀" or name == "大喪の礼" or name == "即位礼正殿の儀" then
+        name = "休日（祝日扱い）"
+      end
       year = assert(tonumber(year, 10))
       month = assert(tonumber(month, 10))
       day = assert(tonumber(day, 10))
@@ -76,6 +79,7 @@ read_csv("docs/cao.go.jp/syukujitsu-2016-2018.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-2017-2019.csv", { [2019] = true })
 read_csv("docs/cao.go.jp/syukujitsu-2019-2020.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-1955-2020.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-1955-2021.csv", {})
 
 local handle = assert(io.popen "cat docs/cybozu.co.jp/*.csv | iconv -f CP932")
 for line in handle:lines() do
