@@ -30,7 +30,7 @@ assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 assert(calendar.holidays.min_year == 1955)
-assert(calendar.holidays.max_year == 2020)
+assert(calendar.holidays.max_year == 2021)
 for year = calendar.holidays.min_year, calendar.holidays.max_year do
   for month = 1, 12 do
     assert(calendar.holidays.tree[year][month])
