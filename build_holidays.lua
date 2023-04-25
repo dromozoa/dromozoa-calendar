@@ -1,4 +1,4 @@
--- Copyright (C) 2018-2020 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018-2020,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -41,7 +41,7 @@ local name_map = {
 local jdn_map = {}
 
 local function read_csv(file, ignore)
-  local handle = assert(io.popen("iconv -f CP932 <'" ..file .. "'"))
+  local handle = assert(io.popen("iconv -f CP932 <'"..file .."'"))
   local i = 0
   for line in handle:lines() do
     i = i + 1
@@ -79,35 +79,48 @@ read_csv("docs/cao.go.jp/syukujitsu-2016-2018.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-2017-2019.csv", { [2019] = true })
 read_csv("docs/cao.go.jp/syukujitsu-2019-2020.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-1955-2020.csv", {})
-read_csv("docs/cao.go.jp/syukujitsu-1955-2021.csv", {})
+-- 2021年は祝日の移動が発生したので読まない
+-- read_csv("docs/cao.go.jp/syukujitsu-1955-2021.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-1955-2024.csv", {})
 
-local handle = assert(io.popen "cat docs/cybozu.co.jp/*.csv | iconv -f CP932")
+local garoon_files = {}
+local handle = assert(io.popen "find docs/cybozu.co.jp/garoon_holiday*.csv")
 for line in handle:lines() do
-  line = line:gsub("\r$", "")
-  line = line:gsub("^\"(%d+/%d+/%d+)\t*\",", "%1,")
-  local year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),([^.]+)$")
-  year = assert(tonumber(year, 10))
-  month = assert(tonumber(month, 10))
-  day = assert(tonumber(day, 10))
-  local jdn = calendar.date_to_jdn(year, month, day)
-  local item = jdn_map[jdn]
-  if item then
-    if item == "休日" then
-      assert(name == "振替休日" or name == "国民の休日")
-      jdn_map[jdn] = name
-    elseif item == "休日（祝日扱い）" then
-      assert(name:find "^即位")
-    elseif item == "体育の日（スポーツの日）" then
-      assert(name == "体育の日")
-      jdn_map[jdn] = name
+  garoon_files[#garoon_files + 1] = line
+end
+handle:close()
+
+for i = 1, #garoon_files do
+  local file = garoon_files[i]
+  local handle = assert(io.popen("iconv -f CP932 <'"..file.."'"))
+  for line in handle:lines() do
+    line = line:gsub("\r$", "")
+    line = line:gsub("^\"(%d+/%d+/%d+)\t*\",", "%1,")
+    local year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),1,([^.]+)$")
+    year = assert(tonumber(year, 10))
+    month = assert(tonumber(month, 10))
+    day = assert(tonumber(day, 10))
+    local jdn = calendar.date_to_jdn(year, month, day)
+    local item = jdn_map[jdn]
+    if item then
+      if item == "休日" then
+        assert(name == "振替休日" or name == "国民の休日")
+        jdn_map[jdn] = name
+      elseif item == "休日（祝日扱い）" then
+        assert(name:find "^即位")
+      elseif item == "体育の日（スポーツの日）" then
+        assert(name == "体育の日")
+        -- print(("%04d-%02d-%02d %s / %s"):format(year, month, day, item, name))
+        jdn_map[jdn] = name
+      else
+        assert(item == name, ("%04d-%02d-%02d %s / %s"):format(year, month, day, item, name))
+      end
     else
-      assert(item == name, ("%04d-%02d-%02d %s / %s"):format(year, month, day, item, name))
+      if name:find "休日$" then
+        assert(name == "振替休日" or name == "国民の休日")
+      end
+      error("only in "..file)
     end
-  else
-    if name:find "休日$" then
-      assert(name == "振替休日" or name == "国民の休日")
-    end
-    jdn_map[jdn] = name
   end
 end
 

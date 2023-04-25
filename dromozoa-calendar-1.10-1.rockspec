@@ -1,4 +1,3 @@
-rockspec_format = "3.0"
 package = "dromozoa-calendar"
 version = "1.10-1"
 source = {
@@ -10,10 +9,6 @@ description = {
   license = "GPL-3";
   homepage = "https://github.com/dromozoa/dromozoa-calendar/";
   maintainer = "Tomoyuki Fujimori <moyu@dromozoa.com>";
-}
-test = {
-  type = "command";
-  command = "./test.sh";
 }
 build = {
   type = "builtin";
