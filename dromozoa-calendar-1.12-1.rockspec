@@ -1,8 +1,8 @@
 package = "dromozoa-calendar"
-version = "1.11-1"
+version = "1.12-1"
 source = {
-  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.11.tar.gz";
-  file = "dromozoa-calendar-1.11.tar.gz";
+  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.12.tar.gz";
+  file = "dromozoa-calendar-1.12.tar.gz";
 }
 description = {
   summary = "Date functions and Japanese calendar";
