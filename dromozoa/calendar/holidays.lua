@@ -1009,13 +1009,68 @@ local data = {
   { year = 2021, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
   { year = 2021, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
   { year = 2021, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
-  { year = 2021, month =  7, day = 19, kind = "祝日", name = "海の日" };
-  { year = 2021, month =  8, day = 11, kind = "祝日", name = "山の日" };
+  { year = 2021, month =  7, day = 22, kind = "祝日", name = "海の日" };
+  { year = 2021, month =  7, day = 23, kind = "祝日", name = "スポーツの日" };
+  { year = 2021, month =  8, day =  8, kind = "祝日", name = "山の日" };
+  { year = 2021, month =  8, day =  9, kind = "休日", name = "振替休日" };
   { year = 2021, month =  9, day = 20, kind = "祝日", name = "敬老の日" };
   { year = 2021, month =  9, day = 23, kind = "祝日", name = "秋分の日" };
-  { year = 2021, month = 10, day = 11, kind = "祝日", name = "スポーツの日" };
   { year = 2021, month = 11, day =  3, kind = "祝日", name = "文化の日" };
   { year = 2021, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2022, month =  1, day =  1, kind = "祝日", name = "元日" };
+  { year = 2022, month =  1, day = 10, kind = "祝日", name = "成人の日" };
+  { year = 2022, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
+  { year = 2022, month =  2, day = 23, kind = "祝日", name = "天皇誕生日" };
+  { year = 2022, month =  3, day = 21, kind = "祝日", name = "春分の日" };
+  { year = 2022, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2022, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
+  { year = 2022, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
+  { year = 2022, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
+  { year = 2022, month =  7, day = 18, kind = "祝日", name = "海の日" };
+  { year = 2022, month =  8, day = 11, kind = "祝日", name = "山の日" };
+  { year = 2022, month =  9, day = 19, kind = "祝日", name = "敬老の日" };
+  { year = 2022, month =  9, day = 23, kind = "祝日", name = "秋分の日" };
+  { year = 2022, month = 10, day = 10, kind = "祝日", name = "スポーツの日" };
+  { year = 2022, month = 11, day =  3, kind = "祝日", name = "文化の日" };
+  { year = 2022, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2023, month =  1, day =  1, kind = "祝日", name = "元日" };
+  { year = 2023, month =  1, day =  2, kind = "休日", name = "振替休日" };
+  { year = 2023, month =  1, day =  9, kind = "祝日", name = "成人の日" };
+  { year = 2023, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
+  { year = 2023, month =  2, day = 23, kind = "祝日", name = "天皇誕生日" };
+  { year = 2023, month =  3, day = 21, kind = "祝日", name = "春分の日" };
+  { year = 2023, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2023, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
+  { year = 2023, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
+  { year = 2023, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
+  { year = 2023, month =  7, day = 17, kind = "祝日", name = "海の日" };
+  { year = 2023, month =  8, day = 11, kind = "祝日", name = "山の日" };
+  { year = 2023, month =  9, day = 18, kind = "祝日", name = "敬老の日" };
+  { year = 2023, month =  9, day = 23, kind = "祝日", name = "秋分の日" };
+  { year = 2023, month = 10, day =  9, kind = "祝日", name = "スポーツの日" };
+  { year = 2023, month = 11, day =  3, kind = "祝日", name = "文化の日" };
+  { year = 2023, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2024, month =  1, day =  1, kind = "祝日", name = "元日" };
+  { year = 2024, month =  1, day =  8, kind = "祝日", name = "成人の日" };
+  { year = 2024, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
+  { year = 2024, month =  2, day = 12, kind = "休日", name = "振替休日" };
+  { year = 2024, month =  2, day = 23, kind = "祝日", name = "天皇誕生日" };
+  { year = 2024, month =  3, day = 20, kind = "祝日", name = "春分の日" };
+  { year = 2024, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2024, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
+  { year = 2024, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
+  { year = 2024, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
+  { year = 2024, month =  5, day =  6, kind = "休日", name = "振替休日" };
+  { year = 2024, month =  7, day = 15, kind = "祝日", name = "海の日" };
+  { year = 2024, month =  8, day = 11, kind = "祝日", name = "山の日" };
+  { year = 2024, month =  8, day = 12, kind = "休日", name = "振替休日" };
+  { year = 2024, month =  9, day = 16, kind = "祝日", name = "敬老の日" };
+  { year = 2024, month =  9, day = 22, kind = "祝日", name = "秋分の日" };
+  { year = 2024, month =  9, day = 23, kind = "休日", name = "振替休日" };
+  { year = 2024, month = 10, day = 14, kind = "祝日", name = "スポーツの日" };
+  { year = 2024, month = 11, day =  3, kind = "祝日", name = "文化の日" };
+  { year = 2024, month = 11, day =  4, kind = "休日", name = "振替休日" };
+  { year = 2024, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
 }
 
 local tree = {
@@ -1086,6 +1141,9 @@ local tree = {
   [2019] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2020] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2021] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+  [2022] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+  [2023] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+  [2024] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
 }
 tree[1955][ 1][ 1] = data[  1]
 tree[1955][ 1][15] = data[  2]
@@ -2097,17 +2155,72 @@ tree[2021][ 4][29] = data[1007]
 tree[2021][ 5][ 3] = data[1008]
 tree[2021][ 5][ 4] = data[1009]
 tree[2021][ 5][ 5] = data[1010]
-tree[2021][ 7][19] = data[1011]
-tree[2021][ 8][11] = data[1012]
-tree[2021][ 9][20] = data[1013]
-tree[2021][ 9][23] = data[1014]
-tree[2021][10][11] = data[1015]
-tree[2021][11][ 3] = data[1016]
-tree[2021][11][23] = data[1017]
+tree[2021][ 7][22] = data[1011]
+tree[2021][ 7][23] = data[1012]
+tree[2021][ 8][ 8] = data[1013]
+tree[2021][ 8][ 9] = data[1014]
+tree[2021][ 9][20] = data[1015]
+tree[2021][ 9][23] = data[1016]
+tree[2021][11][ 3] = data[1017]
+tree[2021][11][23] = data[1018]
+tree[2022][ 1][ 1] = data[1019]
+tree[2022][ 1][10] = data[1020]
+tree[2022][ 2][11] = data[1021]
+tree[2022][ 2][23] = data[1022]
+tree[2022][ 3][21] = data[1023]
+tree[2022][ 4][29] = data[1024]
+tree[2022][ 5][ 3] = data[1025]
+tree[2022][ 5][ 4] = data[1026]
+tree[2022][ 5][ 5] = data[1027]
+tree[2022][ 7][18] = data[1028]
+tree[2022][ 8][11] = data[1029]
+tree[2022][ 9][19] = data[1030]
+tree[2022][ 9][23] = data[1031]
+tree[2022][10][10] = data[1032]
+tree[2022][11][ 3] = data[1033]
+tree[2022][11][23] = data[1034]
+tree[2023][ 1][ 1] = data[1035]
+tree[2023][ 1][ 2] = data[1036]
+tree[2023][ 1][ 9] = data[1037]
+tree[2023][ 2][11] = data[1038]
+tree[2023][ 2][23] = data[1039]
+tree[2023][ 3][21] = data[1040]
+tree[2023][ 4][29] = data[1041]
+tree[2023][ 5][ 3] = data[1042]
+tree[2023][ 5][ 4] = data[1043]
+tree[2023][ 5][ 5] = data[1044]
+tree[2023][ 7][17] = data[1045]
+tree[2023][ 8][11] = data[1046]
+tree[2023][ 9][18] = data[1047]
+tree[2023][ 9][23] = data[1048]
+tree[2023][10][ 9] = data[1049]
+tree[2023][11][ 3] = data[1050]
+tree[2023][11][23] = data[1051]
+tree[2024][ 1][ 1] = data[1052]
+tree[2024][ 1][ 8] = data[1053]
+tree[2024][ 2][11] = data[1054]
+tree[2024][ 2][12] = data[1055]
+tree[2024][ 2][23] = data[1056]
+tree[2024][ 3][20] = data[1057]
+tree[2024][ 4][29] = data[1058]
+tree[2024][ 5][ 3] = data[1059]
+tree[2024][ 5][ 4] = data[1060]
+tree[2024][ 5][ 5] = data[1061]
+tree[2024][ 5][ 6] = data[1062]
+tree[2024][ 7][15] = data[1063]
+tree[2024][ 8][11] = data[1064]
+tree[2024][ 8][12] = data[1065]
+tree[2024][ 9][16] = data[1066]
+tree[2024][ 9][22] = data[1067]
+tree[2024][ 9][23] = data[1068]
+tree[2024][10][14] = data[1069]
+tree[2024][11][ 3] = data[1070]
+tree[2024][11][ 4] = data[1071]
+tree[2024][11][23] = data[1072]
 
 return {
   min_year = 1955;
-  max_year = 2021;
+  max_year = 2024;
   data = data;
   tree = tree;
 }
