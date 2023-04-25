@@ -1,4 +1,4 @@
--- Copyright (C) 2018-2020 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018-2020,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -30,7 +30,7 @@ assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 assert(calendar.holidays.min_year == 1955)
-assert(calendar.holidays.max_year == 2021)
+assert(calendar.holidays.max_year == 2024)
 for year = calendar.holidays.min_year, calendar.holidays.max_year do
   for month = 1, 12 do
     assert(calendar.holidays.tree[year][month])
@@ -100,3 +100,9 @@ assert(item.kind == "休日")
 assert(item.name == "振替休日")
 
 assert(jdn - start_jdn + 1 == 10)
+
+-- オリンピックのせいで移動
+local item = calendar.is_holiday(2021, 8, 8)
+assert(item.kind == "祝日")
+assert(item.name == "山の日")
+assert(not calendar.is_holiday(2021, 8, 11))

@@ -1,19 +1,14 @@
-rockspec_format = "3.0"
 package = "dromozoa-calendar"
-version = "1.10-1"
+version = "1.11-1"
 source = {
-  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.10.tar.gz";
-  file = "dromozoa-calendar-1.10.tar.gz";
+  url = "https://github.com/dromozoa/dromozoa-calendar/archive/v1.11.tar.gz";
+  file = "dromozoa-calendar-1.11.tar.gz";
 }
 description = {
   summary = "Date functions and Japanese calendar";
   license = "GPL-3";
   homepage = "https://github.com/dromozoa/dromozoa-calendar/";
   maintainer = "Tomoyuki Fujimori <moyu@dromozoa.com>";
-}
-test = {
-  type = "command";
-  command = "./test.sh";
 }
 build = {
   type = "builtin";
