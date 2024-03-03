@@ -1,4 +1,4 @@
--- Copyright (C) 2018-2020,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018-2020,2023,2024 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -82,6 +82,7 @@ read_csv("docs/cao.go.jp/syukujitsu-1955-2020.csv", {})
 -- 2021年は祝日の移動が発生したので読まない
 -- read_csv("docs/cao.go.jp/syukujitsu-1955-2021.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-1955-2024.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-1955-2025.csv", {})
 
 local garoon_files = {}
 local handle = assert(io.popen "find docs/cybozu.co.jp/garoon_holiday*.csv")

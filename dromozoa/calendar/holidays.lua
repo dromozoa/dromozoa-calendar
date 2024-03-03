@@ -1071,6 +1071,25 @@ local data = {
   { year = 2024, month = 11, day =  3, kind = "祝日", name = "文化の日" };
   { year = 2024, month = 11, day =  4, kind = "休日", name = "振替休日" };
   { year = 2024, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2025, month =  1, day =  1, kind = "祝日", name = "元日" };
+  { year = 2025, month =  1, day = 13, kind = "祝日", name = "成人の日" };
+  { year = 2025, month =  2, day = 11, kind = "祝日", name = "建国記念の日" };
+  { year = 2025, month =  2, day = 23, kind = "祝日", name = "天皇誕生日" };
+  { year = 2025, month =  2, day = 24, kind = "休日", name = "振替休日" };
+  { year = 2025, month =  3, day = 20, kind = "祝日", name = "春分の日" };
+  { year = 2025, month =  4, day = 29, kind = "祝日", name = "昭和の日" };
+  { year = 2025, month =  5, day =  3, kind = "祝日", name = "憲法記念日" };
+  { year = 2025, month =  5, day =  4, kind = "祝日", name = "みどりの日" };
+  { year = 2025, month =  5, day =  5, kind = "祝日", name = "こどもの日" };
+  { year = 2025, month =  5, day =  6, kind = "休日", name = "振替休日" };
+  { year = 2025, month =  7, day = 21, kind = "祝日", name = "海の日" };
+  { year = 2025, month =  8, day = 11, kind = "祝日", name = "山の日" };
+  { year = 2025, month =  9, day = 15, kind = "祝日", name = "敬老の日" };
+  { year = 2025, month =  9, day = 23, kind = "祝日", name = "秋分の日" };
+  { year = 2025, month = 10, day = 13, kind = "祝日", name = "スポーツの日" };
+  { year = 2025, month = 11, day =  3, kind = "祝日", name = "文化の日" };
+  { year = 2025, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
+  { year = 2025, month = 11, day = 24, kind = "休日", name = "振替休日" };
 }
 
 local tree = {
@@ -1144,6 +1163,7 @@ local tree = {
   [2022] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2023] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [2024] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
+  [2025] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
 }
 tree[1955][ 1][ 1] = data[  1]
 tree[1955][ 1][15] = data[  2]
@@ -2217,10 +2237,29 @@ tree[2024][10][14] = data[1069]
 tree[2024][11][ 3] = data[1070]
 tree[2024][11][ 4] = data[1071]
 tree[2024][11][23] = data[1072]
+tree[2025][ 1][ 1] = data[1073]
+tree[2025][ 1][13] = data[1074]
+tree[2025][ 2][11] = data[1075]
+tree[2025][ 2][23] = data[1076]
+tree[2025][ 2][24] = data[1077]
+tree[2025][ 3][20] = data[1078]
+tree[2025][ 4][29] = data[1079]
+tree[2025][ 5][ 3] = data[1080]
+tree[2025][ 5][ 4] = data[1081]
+tree[2025][ 5][ 5] = data[1082]
+tree[2025][ 5][ 6] = data[1083]
+tree[2025][ 7][21] = data[1084]
+tree[2025][ 8][11] = data[1085]
+tree[2025][ 9][15] = data[1086]
+tree[2025][ 9][23] = data[1087]
+tree[2025][10][13] = data[1088]
+tree[2025][11][ 3] = data[1089]
+tree[2025][11][23] = data[1090]
+tree[2025][11][24] = data[1091]
 
 return {
   min_year = 1955;
-  max_year = 2024;
+  max_year = 2025;
   data = data;
   tree = tree;
 }
