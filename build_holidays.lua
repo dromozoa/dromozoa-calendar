@@ -1,4 +1,4 @@
--- Copyright (C) 2018-2020,2023,2024 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018-2020,2023,2024,2026 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -45,7 +45,7 @@ local function read_csv(file, ignore)
   local i = 0
   for line in handle:lines() do
     i = i + 1
-    line = line:gsub("\r$", "")
+    local line = line:gsub("\r$", "")
     if i == 1 then
       assert(line == "国民の祝日月日,国民の祝日名称" or line == "国民の祝日・休日月日,国民の祝日・休日名称")
     else
@@ -83,6 +83,7 @@ read_csv("docs/cao.go.jp/syukujitsu-1955-2020.csv", {})
 -- read_csv("docs/cao.go.jp/syukujitsu-1955-2021.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-1955-2024.csv", {})
 read_csv("docs/cao.go.jp/syukujitsu-1955-2025.csv", {})
+read_csv("docs/cao.go.jp/syukujitsu-1955-2027.csv", {})
 
 local garoon_files = {}
 local handle = assert(io.popen "find docs/cybozu.co.jp/garoon_holiday*.csv")
@@ -95,7 +96,7 @@ for i = 1, #garoon_files do
   local file = garoon_files[i]
   local handle = assert(io.popen("iconv -f CP932 <'"..file.."'"))
   for line in handle:lines() do
-    line = line:gsub("\r$", "")
+    local line = line:gsub("\r$", "")
     line = line:gsub("^\"(%d+/%d+/%d+)\t*\",", "%1,")
     local year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),1,([^.]+)$")
     year = assert(tonumber(year, 10))
