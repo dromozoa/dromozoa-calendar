@@ -1,4 +1,4 @@
--- Copyright (C) 2018,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2023,2026 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -17,7 +17,11 @@
 
 local floor = math.floor
 
-return function (year, month, day)
+---@param year integer
+---@param month integer
+---@param day integer
+---@return integer jdn
+return function(year, month, day)
   local y = floor((month - 3) / 12)
   year = year + y
   month = month + 1 - y * 12

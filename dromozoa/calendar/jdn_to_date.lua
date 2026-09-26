@@ -1,4 +1,4 @@
--- Copyright (C) 2018,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2023,2026 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -17,7 +17,12 @@
 
 local floor = math.floor
 
-return function (jdn)
+---@param jdn integer
+---@return integer year
+---@return integer month
+---@return integer day
+---@return integer wday
+return function(jdn)
   local A = jdn + 1
   local wday = A % 7
   if A >= 2299162 then

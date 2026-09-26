@@ -56,9 +56,9 @@ local function read_csv(file, ignore)
       if name == "結婚の儀" or name == "大喪の礼" or name == "即位礼正殿の儀" then
         name = "休日（祝日扱い）"
       end
-      year = assert(tonumber(year, 10))
-      month = assert(tonumber(month, 10))
-      day = assert(tonumber(day, 10))
+      local year = assert(tonumber(year, 10))
+      local month = assert(tonumber(month, 10))
+      local day = assert(tonumber(day, 10))
       assert(1 <= month and month <= 12)
       assert(1 <= day and day <= 31)
       if not ignore[year] then
@@ -99,9 +99,9 @@ for i = 1, #garoon_files do
     local line = line:gsub("\r$", "")
     line = line:gsub("^\"(%d+/%d+/%d+)\t*\",", "%1,")
     local year, month, day, name = assert(line:match "^(%d%d%d%d)/(%d%d?)/(%d%d?),1,([^.]+)$")
-    year = assert(tonumber(year, 10))
-    month = assert(tonumber(month, 10))
-    day = assert(tonumber(day, 10))
+    local year = assert(tonumber(year, 10))
+    local month = assert(tonumber(month, 10))
+    local day = assert(tonumber(day, 10))
     local jdn = calendar.date_to_jdn(year, month, day)
     local item = jdn_map[jdn]
     if item then
@@ -129,7 +129,7 @@ end
 local min_year
 local max_year
 
-for jdn, name in pairs(jdn_map) do
+for jdn in pairs(jdn_map) do
   local year = calendar.jdn_to_date(jdn)
   if not min_year or min_year > year then
     min_year = year
@@ -216,6 +216,14 @@ end
 local filename = "dromozoa/calendar/holidays.lua"
 local out = assert(io.open(filename, "w"))
 out:write [[
+---@class dromozoa.calendar.holiday
+---@field year integer
+---@field month integer
+---@field day integer
+---@field kind string
+---@field name string
+
+---@type dromozoa.calendar.holiday[]
 local data = {
 ]]
 
@@ -229,6 +237,7 @@ end
 out:write [[
 }
 
+---@type table<integer, table<integer, table<integer, dromozoa.calendar.holiday>>>
 local tree = {
 ]]
 
