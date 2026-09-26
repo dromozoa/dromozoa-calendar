@@ -1,3 +1,11 @@
+---@class dromozoa.calendar.holiday
+---@field year integer
+---@field month integer
+---@field day integer
+---@field kind string
+---@field name string
+
+---@type dromozoa.calendar.holiday[]
 local data = {
   { year = 1955, month =  1, day =  1, kind = "祝日", name = "元日" };
   { year = 1955, month =  1, day = 15, kind = "祝日", name = "成人の日" };
@@ -1127,6 +1135,7 @@ local data = {
   { year = 2027, month = 11, day = 23, kind = "祝日", name = "勤労感謝の日" };
 }
 
+---@type table<integer, table<integer, table<integer, dromozoa.calendar.holiday>>>
 local tree = {
   [1955] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };
   [1956] = { {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} };

@@ -1,4 +1,4 @@
--- Copyright (C) 2018,2023 Tomoyuki Fujimori <moyu@dromozoa.com>
+-- Copyright (C) 2018,2023,2026 Tomoyuki Fujimori <moyu@dromozoa.com>
 --
 -- This file is part of dromozoa-calendar.
 --
@@ -21,7 +21,11 @@ local min_year = holidays.min_year
 local max_year = holidays.max_year
 local tree = holidays.tree
 
-return function (year, month, day)
+---@param year integer|string
+---@param month integer|string
+---@param day integer|string
+---@return dromozoa.calendar.holiday|false|nil
+return function(year, month, day)
   year = year + 0
   if min_year <= year and year <= max_year then
     local item = tree[year][month + 0][day + 0]
