@@ -216,6 +216,14 @@ end
 local filename = "dromozoa/calendar/holidays.lua"
 local out = assert(io.open(filename, "w"))
 out:write [[
+---@class dromozoa.calendar.holiday
+---@field year integer
+---@field month integer
+---@field day integer
+---@field kind string
+---@field name string
+
+---@type dromozoa.calendar.holiday[]
 local data = {
 ]]
 
@@ -229,6 +237,7 @@ end
 out:write [[
 }
 
+---@type table<integer, table<integer, table<integer, dromozoa.calendar.holiday>>>
 local tree = {
 ]]
 
