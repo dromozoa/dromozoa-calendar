@@ -19,13 +19,16 @@ local calendar = require "dromozoa.calendar"
 
 assert(calendar.is_holiday(1954, 1, 1) == nil)
 local item = calendar.is_holiday(2006, 1, 1)
+assert(item)
 assert(item.kind == "祝日")
 assert(item.name == "元日")
 local item = calendar.is_holiday(2006, 1, 2)
+assert(item)
 assert(item.kind == "休日")
 assert(item.name == "振替休日")
 assert(calendar.is_holiday(2006, 1, 3) == false)
 local item = calendar.is_holiday(2006, 5, 4)
+assert(item)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
@@ -53,30 +56,35 @@ assert(wday == 0)
 -- 2019-04-29 (Mon)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "祝日")
 assert(item.name == "昭和の日")
 
 -- 2019-04-30 (Tue)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 -- 2019-05-01 (Wed)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "祝日")
 assert(item.name == "休日（祝日扱い）")
 
 -- 2019-05-02 (Thu)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "休日")
 assert(item.name == "国民の休日")
 
 -- 2019-05-03 (Fri)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "祝日")
 assert(item.name == "憲法記念日")
 
@@ -96,6 +104,7 @@ assert(wday == 0)
 -- 2019-05-06 (Mon)
 jdn = jdn + 1
 local item = calendar.is_holiday(calendar.jdn_to_date(jdn))
+assert(item)
 assert(item.kind == "休日")
 assert(item.name == "振替休日")
 
@@ -103,6 +112,7 @@ assert(jdn - start_jdn + 1 == 10)
 
 -- オリンピックのせいで移動
 local item = calendar.is_holiday(2021, 8, 8)
+assert(item)
 assert(item.kind == "祝日")
 assert(item.name == "山の日")
 assert(not calendar.is_holiday(2021, 8, 11))

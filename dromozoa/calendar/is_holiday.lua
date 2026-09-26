@@ -21,6 +21,10 @@ local min_year = holidays.min_year
 local max_year = holidays.max_year
 local tree = holidays.tree
 
+---@param year integer|string
+---@param month integer|string
+---@param day integer|string
+---@return dromozoa.calendar.holiday|false|nil
 return function (year, month, day)
   year = year + 0
   if min_year <= year and year <= max_year then
