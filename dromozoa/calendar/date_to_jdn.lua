@@ -21,7 +21,7 @@ local floor = math.floor
 ---@param month integer
 ---@param day integer
 ---@return integer jdn
-return function (year, month, day)
+return function(year, month, day)
   local y = floor((month - 3) / 12)
   year = year + y
   month = month + 1 - y * 12

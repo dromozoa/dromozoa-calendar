@@ -25,7 +25,7 @@ local tree = holidays.tree
 ---@param month integer|string
 ---@param day integer|string
 ---@return dromozoa.calendar.holiday|false|nil
-return function (year, month, day)
+return function(year, month, day)
   year = year + 0
   if min_year <= year and year <= max_year then
     local item = tree[year][month + 0][day + 0]

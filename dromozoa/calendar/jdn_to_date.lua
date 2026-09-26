@@ -22,7 +22,7 @@ local floor = math.floor
 ---@return integer month
 ---@return integer day
 ---@return integer wday
-return function (jdn)
+return function(jdn)
   local A = jdn + 1
   local wday = A % 7
   if A >= 2299162 then
